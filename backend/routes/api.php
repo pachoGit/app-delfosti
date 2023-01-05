@@ -23,9 +23,11 @@ Route::apiResource('products', ProductController::class)->only([
     'destroy', 'show', 'store', 'update', 'index'
 ]);
 
-Route::get('products/pages/{nregisters}',         [ProductController::class,  'pages']);
+Route::get('products/pages/{nregisters}',           [ProductController::class,  'pages']);
 
 Route::get('products/search/byname/{name}',         [ProductController::class,  'searchByName']);
 Route::get('products/search/byslug/{slug}',         [ProductController::class,  'searchBySlug']);
 Route::get('products/search/bycategory/{category}', [ProductController::class,  'searchByCategory']);
-Route::get('products/search/bybrand/{brand}',    [ProductController::class,  'searchByBrand']);
+Route::get('products/search/bybrand/{brand}',       [ProductController::class,  'searchByBrand']);
+
+Route::get('products/other/table', [ProductController::class, 'ajaxTable']);

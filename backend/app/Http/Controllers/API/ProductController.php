@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -158,6 +159,32 @@ class ProductController extends Controller
     public function searchByBrand($brand)
     {
         $data = Product::where('brand.name', 'like', '%' . $brand . '%')->get();
+        return $this->okReponse($data);
+    }
+
+    /**
+     * Send data for request of DataTable products
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxTable()
+    {
+        $productos = Product::where('status', 1)->get();
+
+        $data = [];
+        foreach ($productos as $producto)
+        {
+            $info['nameProduct'] = $producto['name'];
+            $info['slugProduct'] = $producto['slug'];
+            $info['nameCategory'] = $producto['category']['name'];
+            $info['slugCategory'] = $producto['category']['slug'];
+            $info['nameBrand'] = $producto['brand']['name'];
+            $info['slugBrand'] = $producto['brand']['slug'];
+            $info['statusProduct'] = $producto['status'];
+            $date = new DateTime($producto['created_at']);
+            $info['creationProduct'] = $producto['created_at'];
+            array_push($data, $info);
+        }
         return $this->okReponse($data);
     }
 

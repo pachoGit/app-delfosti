@@ -1,0 +1,119 @@
+<router-outlet></router-outlet>
+
+<section class="content mt-5">
+    <div class="row justify-content-center">
+        <div class="card col-lg-10">
+
+            <div class="card-header">
+                <h3 class="card-title">Lista de productos</h3>
+                <div class="card-tools">
+                    <button id="btnNew" (click)="showModalForm(content)"  type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                        data-target="#modal-products">
+                        Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body p-3">
+                <table id="tbl_products" datatable [dtOptions]="dtOptions" class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>NOMBRE PRODUCTO</th>
+                        <th>URL PRODUCTO</th>
+                        <th>NOMBRE CATEGORÍA</th>
+                        <th>URL CATEGORÍA</th>
+                        <th>NOMBRE MARCA</th>
+                        <th>URL MARCA</th>
+                        <th>FECHA CREACIÓN</th>
+                        <th>ACCIONES</th>
+                        </tr>
+                </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Modal products -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Actualizar producto</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="onSubmit(fm)" #fm="ngForm" class="form">
+
+          <div class="row mb-3">
+            <label for="">INFORMACIÓN DEL PRODUCTO</label>
+          </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="name-product">NOMBRE DEL PRODUCTO</label>
+                        <input ngModel class="form-control" type="text" name="name-product"
+                            placeholder="Ingrese el nombre del producto" required />
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="slug-product">URL DEL PRODUCTO</label>
+                        <input ngModel class="form-control" type="text" name="slug-product"
+                            placeholder="Ingrese la url del producto" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for=""> CATEGORÍA DEL PRODUCTO</label>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="name-category">NOMBRE CATEGORÍA</label>
+                        <input ngModel class="form-control" type="text" name="name-category" placeholder="Ingrese la categoría"  required/>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="slug-category">URL CATEGORÍA</label>
+                        <input ngModel class="form-control" type="text" name="slug-category"
+                            placeholder="Ingrese la url de la categoría" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for=""> MARCA DEL PRODUCTO</label>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="name-brand">NOMBRE MARCA</label>
+                        <input ngModel class="form-control" type="text" name="name-brand" placeholder="Ingrese la marca"  required/>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="slug-brand">URL MARCA</label>
+                        <input ngModel class="form-control" type="text" name="slug-brand" placeholder="Ingrese la url de la marca" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+              <button type="button" class="btn btn-outline-danger ml-5" (click)="modal.close('Cancel click')">Cancelar</button>
+              <button type="submit" class="btn btn-outline-primary ml-5 pl-5" (click)="modal.close('Save click')">Aceptar</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>

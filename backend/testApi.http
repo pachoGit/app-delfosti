@@ -63,7 +63,6 @@ Content-Type: application/json
 #### UDPTE
 DELETE http://127.0.0.1:8000/api/products/63b6caf849f45d38d00fb0a2
 
-
 ###### API SEARCH #########
 
 ### BY NAME PRODUCT
@@ -77,3 +76,6 @@ GET http://127.0.0.1:8000/api/products/search/bycategory/fruit
 
 ### BY NAME BRAND NAME
 GET http://127.0.0.1:8000/api/products/search/bybrand/pure
+
+### DATA FOR DATATABLE
+GET http://127.0.0.1:8000/api/products/other/table
