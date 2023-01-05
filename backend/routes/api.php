@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('products', ProductController::class)->only([
+    'destroy', 'show', 'store', 'update', 'index'
+]);
+
+Route::get('products/pages/{nregisters}',         [ProductController::class,  'pages']);
+
+Route::get('products/search/byname/{name}',         [ProductController::class,  'searchByName']);
+Route::get('products/search/byslug/{slug}',         [ProductController::class,  'searchBySlug']);
+Route::get('products/search/bycategory/{category}', [ProductController::class,  'searchByCategory']);
+Route::get('products/search/bybrand/{brand}',    [ProductController::class,  'searchByBrand']);

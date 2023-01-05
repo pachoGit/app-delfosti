@@ -1,0 +1,79 @@
+###### API CRUD #########
+
+# GET ALL
+GET http://127.0.0.1:8000/api/products
+
+# GET ONE
+GET http://127.0.0.1:8000/api/products/63b6caf849f45d38d00fb0a2
+
+#### PAGINATION
+GET http://127.0.0.1:8000/api/products/pages/3
+
+# INSERT
+POST http://127.0.0.1:8000/api/products
+Content-Type: application/json
+{
+    "name": "melon",
+    "category": {
+        "name": "fruit",
+        "slug": "/category/fruit"
+    },
+    "brand": {
+        "name": "pureAll",
+        "slug": "/brand/pureAll"
+    },
+    "slug": "/products/apple",
+    "status": 1
+}
+
+##
+POST http://127.0.0.1:8000/api/products
+Content-Type: application/json
+{
+    "name": "Language Programming C++",
+    "category": {
+        "name": "book",
+        "slug": "/category/book"
+    },
+    "brand": {
+        "name": "BookAwesome",
+        "slug": "/brand/bookAwesome"
+    },
+    "slug": "/products/languagec++",
+    "status": 1
+}
+
+#### UDPTE
+PUT http://127.0.0.1:8000/api/products/63b6caf849f45d38d00fb0a2
+Content-Type: application/json
+{
+    "name": "Language Programming Java",
+    "category": {
+        "name": "book",
+        "slug": "/category/book"
+    },
+    "brand": {
+        "name": "BookAwesome",
+        "slug": "/brand/bookAwesome"
+    },
+    "slug": "/products/languagec++",
+    "status": 1
+}
+
+#### UDPTE
+DELETE http://127.0.0.1:8000/api/products/63b6caf849f45d38d00fb0a2
+
+
+###### API SEARCH #########
+
+### BY NAME PRODUCT
+GET http://127.0.0.1:8000/api/products/search/byname/lang
+
+### BY SLUG PRODUCT
+GET http://127.0.0.1:8000/api/products/search/byslug/prod
+
+### BY CATEGORY NAME
+GET http://127.0.0.1:8000/api/products/search/bycategory/fruit
+
+### BY NAME BRAND NAME
+GET http://127.0.0.1:8000/api/products/search/bybrand/pure
