@@ -35,6 +35,8 @@ class ProductController extends Controller
         $product->brand = $request->brand;
         $product->slug = $request->slug;
         $product->status = $request->status;
+        if ($product->status == null)
+            $product->status = 1;
 
         $result = $product->save();
         if ($result)
@@ -174,6 +176,7 @@ class ProductController extends Controller
         $data = [];
         foreach ($productos as $producto)
         {
+            $info['_id'] = $producto['_id'];
             $info['nameProduct'] = $producto['name'];
             $info['slugProduct'] = $producto['slug'];
             $info['nameCategory'] = $producto['category']['name'];
@@ -182,7 +185,7 @@ class ProductController extends Controller
             $info['slugBrand'] = $producto['brand']['slug'];
             $info['statusProduct'] = $producto['status'];
             $date = new DateTime($producto['created_at']);
-            $info['creationProduct'] = $producto['created_at'];
+            $info['creationProduct'] = $date->format('Y-m-d H:i:s');
             array_push($data, $info);
         }
         return $this->okReponse($data);

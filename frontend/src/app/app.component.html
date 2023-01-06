@@ -39,10 +39,12 @@
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Actualizar producto</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModalForm()"></button>
     </div>
     <div class="modal-body">
         <form (ngSubmit)="onSubmit(fm)" #fm="ngForm" class="form">
+
+          <input type="hidden" name="idProduct" ngModel [(ngModel)]="actualForEdit.idProduct" />
 
           <div class="row mb-3">
             <label for="">INFORMACIÓN DEL PRODUCTO</label>
@@ -52,7 +54,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="name-product">NOMBRE DEL PRODUCTO</label>
-                        <input ngModel class="form-control" type="text" name="name-product"
+                        <input ngModel class="form-control" type="text" name="name-product" [(ngModel)]="actualForEdit.nameProduct"
                             placeholder="Ingrese el nombre del producto" required />
                     </div>
                 </div>
@@ -60,7 +62,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="slug-product">URL DEL PRODUCTO</label>
-                        <input ngModel class="form-control" type="text" name="slug-product"
+                        <input ngModel class="form-control" type="text" name="slug-product" [(ngModel)]="actualForEdit.slugProduct"
                             placeholder="Ingrese la url del producto" required />
                     </div>
                 </div>
@@ -74,14 +76,15 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="name-category">NOMBRE CATEGORÍA</label>
-                        <input ngModel class="form-control" type="text" name="name-category" placeholder="Ingrese la categoría"  required/>
+                        <input ngModel class="form-control" type="text" name="name-category" placeholder="Ingrese la categoría"
+                            [(ngModel)]="actualForEdit.nameCategory" required />
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="slug-category">URL CATEGORÍA</label>
-                        <input ngModel class="form-control" type="text" name="slug-category"
+                        <input ngModel class="form-control" type="text" name="slug-category" [(ngModel)]="actualForEdit.slugCategory"
                             placeholder="Ingrese la url de la categoría" required />
                     </div>
                 </div>
@@ -95,20 +98,22 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="name-brand">NOMBRE MARCA</label>
-                        <input ngModel class="form-control" type="text" name="name-brand" placeholder="Ingrese la marca"  required/>
+                        <input ngModel class="form-control" type="text" name="name-brand" placeholder="Ingrese la marca"
+                            [(ngModel)]="actualForEdit.nameBrand" required />
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="slug-brand">URL MARCA</label>
-                        <input ngModel class="form-control" type="text" name="slug-brand" placeholder="Ingrese la url de la marca" required/>
+                        <input ngModel class="form-control" type="text" name="slug-brand" placeholder="Ingrese la url de la marca"
+                            [(ngModel)]="actualForEdit.slugBrand" required />
                     </div>
                 </div>
             </div>
 
             <div class="">
-              <button type="button" class="btn btn-outline-danger ml-5" (click)="modal.close('Cancel click')">Cancelar</button>
+              <button type="button" class="btn btn-outline-danger ml-5" (click)="closeModalForm()">Cancelar</button>
               <button type="submit" class="btn btn-outline-primary ml-5 pl-5" (click)="modal.close('Save click')">Aceptar</button>
             </div>
 
