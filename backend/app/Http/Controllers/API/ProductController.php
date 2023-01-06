@@ -77,6 +77,8 @@ class ProductController extends Controller
         $product->brand = $request->brand;
         $product->slug = $request->slug;
         $product->status = $request->status;
+        if ($product->status == null)
+            $product->status = 1;
 
         $result = $product->save();
         if ($result)

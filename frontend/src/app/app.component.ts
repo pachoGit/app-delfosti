@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
@@ -85,6 +85,8 @@ export class AppComponent {
 
   onSubmit = (form: NgForm) => {
     let dataForm = form.value;
+    // console.log(form.value);
+    // return;
     let data = {
       name: dataForm['name-product'],
       slug: dataForm['slug-product'],
@@ -98,27 +100,49 @@ export class AppComponent {
       }
     };
     console.log({ data });
-
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post('http://127.0.0.1:8000/api/products', JSON.stringify(data), { headers }).subscribe((resp: any) => {
-      console.log(resp);
-      if (resp.status == 200) {
-        Swal.fire({
-          title: 'Se registró el producto correctamente',
-          text: resp.msg,
-          icon: 'success'
-        });
-        this.reloadTable();
-      }
-      else {
-        Swal.fire({
-          title: 'Error al ingresar el producto',
-          text: resp.msg,
-          icon: 'error'
-        });
-      }
-    });
-
+    if (dataForm.idProduct == undefined) { // Register new Product
+      this.http.post('http://127.0.0.1:8000/api/products', JSON.stringify(data), { headers }).subscribe((resp: any) => {
+        console.log(resp);
+        if (resp.status == 200) {
+          Swal.fire({
+            title: 'Se registró el producto correctamente',
+            text: resp.msg,
+            icon: 'success'
+          });
+          this.reloadTable();
+          this.clearDataOfEditProduct();
+        }
+        else {
+          Swal.fire({
+            title: 'Error al ingresar el producto',
+            text: resp.msg,
+            icon: 'error'
+          });
+        }
+      });
+    }
+    else { // Edit Product
+      this.http.put('http://127.0.0.1:8000/api/products/' + dataForm.idProduct, JSON.stringify(data), { headers }).subscribe((resp: any) => {
+        console.log(resp);
+        if (resp.status == 200) {
+          Swal.fire({
+            title: 'Se actualizó el producto correctamente',
+            text: resp.msg,
+            icon: 'success'
+          });
+          this.reloadTable();
+          this.clearDataOfEditProduct();
+        }
+        else {
+          Swal.fire({
+            title: 'Error al actualizar el producto',
+            text: resp.msg,
+            icon: 'error'
+          });
+        }
+      });
+    }
   }
 
   /*
@@ -130,6 +154,7 @@ export class AppComponent {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http.get('http://127.0.0.1:8000/api/products/' + item, { headers }).subscribe((resp: any) => {
       let data = resp.data;
+      this.actualForEdit.idProduct =  data._id;
       this.actualForEdit.nameProduct =  data.name;
       this.actualForEdit.slugProduct =  data.slug;
       this.actualForEdit.nameCategory = data.category.name;
@@ -138,7 +163,6 @@ export class AppComponent {
       this.actualForEdit.slugBrand = data.brand.slug;
       this.showModalForm(this.modalTemplate);
     });
-    console.log('HandleEditProductEvent: ', item);
   }
 
   /*
