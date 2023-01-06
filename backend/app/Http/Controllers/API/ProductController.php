@@ -207,10 +207,41 @@ class ProductController extends Controller
             $info['value'] = $producto['_id'];
             $info['label'] = $producto['name'];
             array_push($data, $info);
+            // NOTE: Agregar mas si se desea
+            // $info['value'] = $producto['category']['name'];
+            // $info['label'] = $producto['category']['slug'];
+            // array_push($data, $info);
+            // $info['value'] = $producto['brand']['name'];
+            // $info['label'] = $producto['brand']['slug'];
+            // array_push($data, $info);
         }
         return $this->okReponse($data);
     }
 
+    /**
+     * Send data for request of search of products
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchAll($name)
+    {
+        $productos = Product::where('name', 'like', '%' . $name . '%')->get();
+        $data = [];
+        foreach ($productos as $producto) {
+            $info['_id'] = $producto['_id'];
+            $info['nameProduct'] = $producto['name'];
+            $info['slugProduct'] = $producto['slug'];
+            $info['nameCategory'] = $producto['category']['name'];
+            $info['slugCategory'] = $producto['category']['slug'];
+            $info['nameBrand'] = $producto['brand']['name'];
+            $info['slugBrand'] = $producto['brand']['slug'];
+            $info['statusProduct'] = $producto['status'];
+            $date = new DateTime($producto['created_at']);
+            $info['creationProduct'] = $date->format('Y-m-d H:i:s');
+            array_push($data, $info);
+        }
+        return $this->okReponse($data);
+    }
 
     /**
      * Send a default response of error

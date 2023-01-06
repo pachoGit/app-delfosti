@@ -43,7 +43,7 @@ Content-Type: application/json
     "status": 1
 }
 
-#### UDPTE
+#### UPDATE
 PUT http://127.0.0.1:8000/api/products/63b6caf849f45d38d00fb0a2
 Content-Type: application/json
 {
@@ -60,8 +60,8 @@ Content-Type: application/json
     "status": 1
 }
 
-#### UDPTE
-DELETE http://127.0.0.1:8000/api/products/63b6caf849f45d38d00fb0a2
+#### DELETE
+DELETE http://127.0.0.1:8000/api/products/63b85e84c80108e6a7085104
 
 ###### API SEARCH #########
 

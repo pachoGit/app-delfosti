@@ -32,6 +32,7 @@ export class AppComponent {
   actualForEdit: Product = {} as Product;
   @ViewChild('content', { static: false }) modalTemplate: TemplateRef<any> = {} as TemplateRef<any>;
   dataSelect: any = [];
+  selectedForSearch: string = '';
 
   constructor(private modal: NgbModal, private http: HttpClient) {
     this.dtOptions = {
@@ -116,6 +117,7 @@ export class AppComponent {
           });
           this.reloadTable();
           this.clearDataOfEditProduct();
+          this.loadDataSelect();
         }
         else {
           Swal.fire({
@@ -137,6 +139,7 @@ export class AppComponent {
           });
           this.reloadTable();
           this.clearDataOfEditProduct();
+          this.loadDataSelect();
         }
         else {
           Swal.fire({
@@ -209,6 +212,31 @@ export class AppComponent {
       }
     })
     console.log('HandleDeleteProductEvent: ', item);
+  }
+
+  /**
+   * Store the element selected for the use when load submit search
+   */
+  onSelectedSearch = (event: any) => {
+    this.selectedForSearch = event.options[0].label;
+    console.log('Selected For Search:', this.selectedForSearch);
+  }
+
+  /*
+   * Button of Search
+   */
+  onSubmitSearch = (form: NgForm) => {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.url(this.urlApi + 'products/other/searchAll/' + this.selectedForSearch);
+      this.reloadTable();
+    });
+  }
+
+  restoreSearch = () => {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.url(this.urlApi + 'products/other/table');
+      this.reloadTable();
+    });
   }
 
   loadDataSelect = () => {
