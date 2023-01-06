@@ -194,6 +194,25 @@ class ProductController extends Controller
     }
 
     /**
+     * Send data for request of Select2 products
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxSelect2()
+    {
+        $productos = Product::where('status', 1)->get();
+
+        $data = [];
+        foreach ($productos as $producto) {
+            $info['value'] = $producto['_id'];
+            $info['label'] = $producto['name'];
+            array_push($data, $info);
+        }
+        return $this->okReponse($data);
+    }
+
+
+    /**
      * Send a default response of error
      *
      * @param  Array   $data

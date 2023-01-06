@@ -7,10 +7,26 @@
             <div class="card-header">
                 <h3 class="card-title">Lista de productos</h3>
                 <div class="card-tools">
-                    <button id="btnNew" (click)="showModalForm(content)"  type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                        data-target="#modal-products">
-                        Agregar
-                    </button>
+
+                    <div class="row">
+
+                        <div class="col-6">
+                            <button id="btnNew" (click)="showModalForm(content)" type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#modal-products">
+                                Agregar
+                            </button>
+                        </div>
+
+                        <div class="col-3">
+                            <label for="">BUSCAR</label>
+                            <select2
+                                [data]="dataSelect"
+                                resettable
+                                displaySearchStatus="always"
+                                placeholder="Buscar un producto"
+                            ></select2>
+                        </div>
+                    </div>
                 </div>
             </div>
 

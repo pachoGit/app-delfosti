@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
+import { Select2Module } from 'ng-select2-component'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DataTablesModule } from 'angular-datatables';
     FormsModule,
     HttpClientModule,
     DataTablesModule,
+    Select2Module
   ],
   providers: [],
   bootstrap: [AppComponent]

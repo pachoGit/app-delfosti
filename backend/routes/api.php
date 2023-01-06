@@ -30,4 +30,5 @@ Route::get('products/search/byslug/{slug}',         [ProductController::class,  
 Route::get('products/search/bycategory/{category}', [ProductController::class,  'searchByCategory']);
 Route::get('products/search/bybrand/{brand}',       [ProductController::class,  'searchByBrand']);
 
-Route::get('products/other/table', [ProductController::class, 'ajaxTable']);
+Route::get('products/other/table',   [ProductController::class, 'ajaxTable']);
+Route::get('products/other/select2', [ProductController::class, 'ajaxSelect2']);

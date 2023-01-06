@@ -3,6 +3,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
+import { Select2Option } from 'ng-select2-component';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -30,6 +31,7 @@ export class AppComponent {
   @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
   actualForEdit: Product = {} as Product;
   @ViewChild('content', { static: false }) modalTemplate: TemplateRef<any> = {} as TemplateRef<any>;
+  dataSelect: any = [];
 
   constructor(private modal: NgbModal, private http: HttpClient) {
     this.dtOptions = {
@@ -80,6 +82,8 @@ export class AppComponent {
         return row;
       }
     };
+
+    this.loadDataSelect();
 
   }
 
@@ -205,6 +209,15 @@ export class AppComponent {
       }
     })
     console.log('HandleDeleteProductEvent: ', item);
+  }
+
+  loadDataSelect = () => {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.get(this.urlApi + 'products/other/select2', { headers }).subscribe((resp: any) => {
+      console.log('loadDataSelect:', resp);
+      if (resp.status == 200)
+        this.dataSelect = resp.data;
+    });
   }
 
   reloadTable = () => {
